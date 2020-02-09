@@ -1,0 +1,23 @@
+{
+    "name": "com.bigeti.scene-loader-manager",
+    "version": "1.0.0",
+    "displayName": "Scene Loader Manager for Unity",
+    "description": "This package contains a scene loader manager for Unity.",
+    "unity": "",
+    "unityRelease": "",
+    "dependencies": {},
+    "keywords": [
+        "scene",
+        "loader",
+        "manager",
+        "sceneloader",
+        "loadermanager",
+        "sceneloadermanager"
+    ],
+    "type": "",
+    "author": {
+        "name": "Ethem Kurt",
+        "email": "bigeti.ethem@gmail.com",
+        "url": "https://bigeti.de/"
+    }
+}
