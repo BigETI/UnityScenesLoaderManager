@@ -1,0 +1,18 @@
+{
+    "name": "UnitySceneLoaderManagerEditorAssemblyDefinition",
+    "rootNamespace": "",
+    "references": [
+        "GUID:42b54b3e5144a5b409f3058ee42fc1e9"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
