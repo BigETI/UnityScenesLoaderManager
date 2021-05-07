@@ -4,10 +4,21 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Unity scene loader manager editor namespace
+/// </summary>
 namespace UnitySceneLoaderManagerEditor
 {
+    /// <summary>
+    /// A class that describes scene loader manager editor utilities
+    /// </summary>
     public static class SceneLoaderManagerEditorUtilities
     {
+        /// <summary>
+        /// Draws scene property
+        /// </summary>
+        /// <param name="sceneSerializedProperty">Scene sserialized property</param>
+        /// <returns>Scene name</returns>
         public static string DrawSceneProperty(SerializedProperty sceneSerializedProperty)
         {
             if (sceneSerializedProperty == null)
@@ -17,6 +28,12 @@ namespace UnitySceneLoaderManagerEditor
             return DrawSceneProperty(sceneSerializedProperty.displayName, sceneSerializedProperty);
         }
 
+        /// <summary>
+        /// Draws scene property
+        /// </summary>
+        /// <param name="label">Label</param>
+        /// <param name="sceneSerializedProperty">Scene sserialized property</param>
+        /// <returns>Scene name</returns>
         public static string DrawSceneProperty(string label, SerializedProperty sceneSerializedProperty)
         {
             if (sceneSerializedProperty == null)
@@ -33,6 +50,10 @@ namespace UnitySceneLoaderManagerEditor
             return ret;
         }
 
+        /// <summary>
+        /// Draws something to ask if the specified scene should be added to the build settings, only if that scene is not in the build settings
+        /// </summary>
+        /// <param name="scenePath">Scene path</param>
         public static void DrawAddSceneToBuildSettingsButtonIfSceneIsNotInBuildSettings(string scenePath)
         {
             if (!string.IsNullOrWhiteSpace(scenePath) && (SceneUtility.GetBuildIndexByScenePath(scenePath) < 0))
@@ -49,6 +70,10 @@ namespace UnitySceneLoaderManagerEditor
             }
         }
 
+        /// <summary>
+        /// Draws a scene loader manager settings inspector
+        /// </summary>
+        /// <param name="sceneLoaderManagerSettingsSerializedObject">Scene loader manager settings serialized object</param>
         public static void DrawSceneLoaderManagerSettingsInspector(SerializedObject sceneLoaderManagerSettingsSerializedObject)
         {
             if (sceneLoaderManagerSettingsSerializedObject == null)

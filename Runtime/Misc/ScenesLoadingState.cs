@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// Unity scene loader manager namespace
+/// </summary>
 namespace UnitySceneLoaderManager
 {
     /// <summary>
@@ -13,7 +16,7 @@ namespace UnitySceneLoaderManager
         /// <summary>
         /// Scene loading asynchronous operations
         /// </summary>
-        private AsyncOperation[] sceneLoadingAsyncOperations;
+        private readonly AsyncOperation[] sceneLoadingAsyncOperations;
 
         /// <summary>
         /// Scene loading asynchronous operations

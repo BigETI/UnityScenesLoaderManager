@@ -4,24 +4,54 @@ using UnityEditor;
 using UnityEngine;
 using UnitySceneLoaderManager.Objects;
 
+/// <summary>
+/// Unity scene loader manager editor namespace
+/// </summary>
 namespace UnitySceneLoaderManagerEditor
 {
-    internal class SceneLoaderManagerSettingsProvider : SettingsProvider
+    /// <summary>
+    /// A class that provides scene loader manager settings
+    /// </summary>
+    internal class SceneLoaderManagerSettingsProvider : SettingsProvider, ISceneLoaderManagerSettingsProvider
     {
+        /// <summary>
+        /// Default assets directory path
+        /// </summary>
         private static readonly string defaultAssetsDirectoryPath = "Assets";
 
+        /// <summary>
+        /// Default resources directory name
+        /// </summary>
         private static readonly string defaultResourcesDirectoryName = "Resources";
 
+        /// <summary>
+        /// Default resources directory path
+        /// </summary>
         private static readonly string defaultResourcesDirectoryPath = $"{ defaultAssetsDirectoryPath }/{ defaultResourcesDirectoryName }";
 
-        private static readonly string defaultSceneLoaderManagerSettingsDirectoryName = "Settings";
+        /// <summary>
+        /// Default settings directory name
+        /// </summary>
+        private static readonly string defaultSettingsDirectoryName = "Settings";
 
-        private static readonly string defaultSceneLoaderManagerSettingsDirectoryPath = $"{ defaultResourcesDirectoryPath }/{ defaultSceneLoaderManagerSettingsDirectoryName }";
+        /// <summary>
+        /// Default settings directory path
+        /// </summary>
+        private static readonly string defaultSettingsDirectoryPath = $"{ defaultResourcesDirectoryPath }/{ defaultSettingsDirectoryName }";
 
+        /// <summary>
+        /// Default scene loader manager settings asset name
+        /// </summary>
         private static readonly string defaultSceneLoaderManagerSettingsAssetName = "SceneLoaderManagerSettings";
 
+        /// <summary>
+        /// Scene loader manager project settings label
+        /// </summary>
         private static readonly string sceneLoaderManagerProjectSettingsLabel = "Scene Loader Manager";
 
+        /// <summary>
+        /// Constructs a scene loader manager settings provider
+        /// </summary>
         public SceneLoaderManagerSettingsProvider() :
             base
             (
@@ -43,13 +73,17 @@ namespace UnitySceneLoaderManagerEditor
             label = sceneLoaderManagerProjectSettingsLabel;
         }
 
+        /// <summary>
+        /// Gets invoked when project settings GUI is being drawn
+        /// </summary>
+        /// <param name="searchContext">Search context</param>
         public override void OnGUI(string searchContext)
         {
             base.OnGUI(searchContext);
             SceneLoaderManagerSettingsObjectScript settings = null;
             try
             {
-                settings = Resources.Load<SceneLoaderManagerSettingsObjectScript>($"{ defaultSceneLoaderManagerSettingsDirectoryName }/{ defaultSceneLoaderManagerSettingsAssetName }");
+                settings = Resources.Load<SceneLoaderManagerSettingsObjectScript>($"{ defaultSettingsDirectoryName }/{ defaultSceneLoaderManagerSettingsAssetName }");
             }
             catch (Exception e)
             {
@@ -73,12 +107,12 @@ namespace UnitySceneLoaderManagerEditor
                         {
                             AssetDatabase.CreateFolder(defaultAssetsDirectoryPath, defaultResourcesDirectoryName);
                         }
-                        directory_path = $"./{ defaultSceneLoaderManagerSettingsDirectoryPath }";
+                        directory_path = $"./{ defaultSettingsDirectoryPath }";
                         if (!Directory.Exists(directory_path))
                         {
-                            AssetDatabase.CreateFolder(defaultResourcesDirectoryPath, defaultSceneLoaderManagerSettingsDirectoryName);
+                            AssetDatabase.CreateFolder(defaultResourcesDirectoryPath, defaultSettingsDirectoryName);
                         }
-                        AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<SceneLoaderManagerSettingsObjectScript>(), Path.Combine(defaultSceneLoaderManagerSettingsDirectoryPath, $"{ defaultSceneLoaderManagerSettingsAssetName }.asset").Replace('\\', '/'));
+                        AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<SceneLoaderManagerSettingsObjectScript>(), Path.Combine(defaultSettingsDirectoryPath, $"{ defaultSceneLoaderManagerSettingsAssetName }.asset").Replace('\\', '/'));
                     }
                     catch (Exception e)
                     {
@@ -88,7 +122,13 @@ namespace UnitySceneLoaderManagerEditor
             }
         }
 
+        /// <summary>
+        /// Fetches scene loader manager settings providers
+        /// </summary>
+        /// <returns>Scene loader manager settings providers</returns>
         [SettingsProviderGroup]
-        internal static SettingsProvider[] FetchGenericSettingsProviderList() => new SettingsProvider[] { new SceneLoaderManagerSettingsProvider() };
+#pragma warning disable IDE0051 // Remove unused private member
+        private static SettingsProvider[] FetchSceneLoaderManagerSettingsProviders() => new SettingsProvider[] { new SceneLoaderManagerSettingsProvider() };
+#pragma warning restore IDE0051 // Remove unused private member
     }
 }
