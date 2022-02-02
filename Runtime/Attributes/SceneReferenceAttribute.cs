@@ -2,9 +2,9 @@
 using UnityEngine;
 
 /// <summary>
-/// Unity scene loader manager namespace
+/// Unity scenes loader manager namespace
 /// </summary>
-namespace UnitySceneLoaderManager
+namespace UnityScenesLoaderManager
 {
     /// <summary>
     /// An attribute that describes a field to draw a scene reference

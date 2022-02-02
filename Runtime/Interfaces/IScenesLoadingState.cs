@@ -2,9 +2,9 @@
 using UnityEngine;
 
 /// <summary>
-/// Unity scene loader manager namespace
+/// Unity scenes loader manager namespace
 /// </summary>
-namespace UnitySceneLoaderManager
+namespace UnityScenesLoaderManager
 {
     /// <summary>
     /// An interface that represents a state of loading scenes

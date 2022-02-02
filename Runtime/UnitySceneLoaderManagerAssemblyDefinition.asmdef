@@ -1,6 +1,10 @@
 {
     "name": "UnitySceneLoaderManager",
-    "references": [],
+    "rootNamespace": "",
+    "references": [
+        "GUID:7ea637f12ee486146bd3500de600792c",
+        "GUID:c07277a83abd32d4ca23acd43cef53b0"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

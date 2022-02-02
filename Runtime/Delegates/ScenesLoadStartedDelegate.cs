@@ -1,7 +1,7 @@
 ﻿/// <summary>
-/// Unity scene loader manager namespace
+/// Unity scenes loader manager namespace
 /// </summary>
-namespace UnitySceneLoaderManager
+namespace UnityScenesLoaderManager
 {
     /// <summary>
     /// Used to invoke when loading scenes have been started

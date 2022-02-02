@@ -1,7 +1,7 @@
 ﻿/// <summary>
-/// Unity scene loader manager editor namespace
+/// Unity scenes loader manager editor namespace
 /// </summary>
-namespace UnitySceneLoaderManagerEditor
+namespace UnityScenesLoaderManagerEditor
 {
     /// <summary>
     /// An interface that represents a scene reference attribute property drawer

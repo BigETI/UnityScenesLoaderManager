@@ -1,11 +1,11 @@
 ﻿using UnityEditor;
 using UnityEngine;
-using UnitySceneLoaderManager;
+using UnityScenesLoaderManager;
 
 /// <summary>
-/// Unity scene loader manager editor property drawers namespace
+/// Unity scenes loader manager editor property drawers namespace
 /// </summary>
-namespace UnitySceneLoaderManagerEditor.PropertyDrawers
+namespace UnityScenesLoaderManagerEditor.PropertyDrawers
 {
     /// <summary>
     /// A class that describes a scene reference attribute property drawer

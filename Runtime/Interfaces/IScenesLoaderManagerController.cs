@@ -1,12 +1,14 @@
-﻿/// <summary>
-/// Unity scene loader manager namespace
+﻿using UnityPatterns;
+
+/// <summary>
+/// Unity scenes loader manager namespace
 /// </summary>
-namespace UnitySceneLoaderManager
+namespace UnityScenesLoaderManager
 {
     /// <summary>
-    /// An interface that represents a scene loader manager controller
+    /// An interface that represents a scenes loader manager controller
     /// </summary>
-    public interface ISceneLoaderManagerController
+    public interface IScenesLoaderManagerController : IController
     {
         /// <summary>
         /// Gets invoked when scenes loading process has been started

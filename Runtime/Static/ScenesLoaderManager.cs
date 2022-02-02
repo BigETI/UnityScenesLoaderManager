@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnitySceneLoaderManager.Objects;
 
 /// <summary>
-/// Unity scene loader manager namespace
+/// Unity scenes loader manager namespace
 /// </summary>
-namespace UnitySceneLoaderManager
+namespace UnityScenesLoaderManager
 {
     /// <summary>
-    /// Scene loader manager class
+    /// A class that describes a scenes loader manager
     /// </summary>
-    public static class SceneLoaderManager
+    public static class ScenesLoaderManager
     {
         /// <summary>
         /// Current scenes loading state
@@ -50,11 +49,6 @@ namespace UnitySceneLoaderManager
                 {
                     throw new ArgumentException($"Argument \"{ nameof(sceneNames) }\" contains null.");
                 }
-            }
-            SceneLoaderManagerSettingsObjectScript scene_loader_manager_settings = Resources.Load<SceneLoaderManagerSettingsObjectScript>("Settings/SceneLoaderManagerSettings");
-            if (scene_loader_manager_settings && !string.IsNullOrWhiteSpace(scene_loader_manager_settings.LoadingScreenScenePath))
-            {
-                SceneManager.LoadScene(scene_loader_manager_settings.LoadingScreenScenePath);
             }
             AsyncOperation[] scene_async_operations = new AsyncOperation[sceneNames.Count];
             for (int scene_name_index = 0; scene_name_index < sceneNames.Count; scene_name_index++)

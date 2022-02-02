@@ -4,9 +4,9 @@ using System.Linq;
 using UnityEngine;
 
 /// <summary>
-/// Unity scene loader manager namespace
+/// Unity scenes loader manager namespace
 /// </summary>
-namespace UnitySceneLoaderManager
+namespace UnityScenesLoaderManager
 {
     /// <summary>
     /// A class that describes a state of loading scenes

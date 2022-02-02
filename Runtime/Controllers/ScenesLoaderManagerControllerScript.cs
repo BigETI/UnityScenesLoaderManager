@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityPatterns.Controllers;
 
 /// <summary>
-/// Unity scene loader manager controllers namespace
+/// Unity scenes loader manager controllers namespace
 /// </summary>
-namespace UnitySceneLoaderManager.Controllers
+namespace UnityScenesLoaderManager.Controllers
 {
     /// <summary>
-    /// A class that describes a scene loader manager controller script
+    /// A class that describes a scenes loader manager controller script
     /// </summary>
-    public class SceneLoaderManagerControllerScript : MonoBehaviour, ISceneLoaderManagerController
+    public class ScenesLoaderManagerControllerScript : AControllerScript, IScenesLoaderManagerController
     {
         /// <summary>
         /// On scene load started
@@ -41,9 +42,9 @@ namespace UnitySceneLoaderManager.Controllers
         /// <summary>
         /// Update
         /// </summary>
-        private void Update()
+        protected virtual void Update()
         {
-            bool are_all_scenes_loaded = SceneLoaderManager.CurrentScenesLoadingState.AreAllScenesLoaded;
+            bool are_all_scenes_loaded = ScenesLoaderManager.CurrentScenesLoadingState.AreAllScenesLoaded;
             if (areAllScenesLoaded != are_all_scenes_loaded)
             {
                 areAllScenesLoaded = are_all_scenes_loaded;
@@ -53,7 +54,7 @@ namespace UnitySceneLoaderManager.Controllers
                     {
                         onScenesLoaded.Invoke();
                     }
-                    OnScenesLoadStarted?.Invoke(SceneLoaderManager.CurrentScenesLoadingState);
+                    OnScenesLoadStarted?.Invoke(ScenesLoaderManager.CurrentScenesLoadingState);
                 }
                 else
                 {
@@ -61,7 +62,7 @@ namespace UnitySceneLoaderManager.Controllers
                     {
                         onScenesLoadStarted.Invoke();
                     }
-                    OnScenesLoaded?.Invoke(SceneLoaderManager.CurrentScenesLoadingState);
+                    OnScenesLoaded?.Invoke(ScenesLoaderManager.CurrentScenesLoadingState);
                 }
             }
         }
