@@ -1,11 +1,14 @@
 {
-    "name": "UnitySceneLoaderManager",
+    "name": "UnityScenesLoaderManagerEditorAssemblyDefinition",
     "rootNamespace": "",
     "references": [
         "GUID:7ea637f12ee486146bd3500de600792c",
-        "GUID:c07277a83abd32d4ca23acd43cef53b0"
+        "GUID:c07277a83abd32d4ca23acd43cef53b0",
+        "GUID:42b54b3e5144a5b409f3058ee42fc1e9"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
