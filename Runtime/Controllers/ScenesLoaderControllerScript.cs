@@ -11,7 +11,7 @@ namespace UnityScenesLoaderManager.Controllers
     /// <summary>
     /// A class that describes a scenes loader controller script
     /// </summary>
-    public class ScenesLoaderControllerScript : AControllerScript, IScenesLoaderController
+    public sealed class ScenesLoaderControllerScript : AControllerScript, IScenesLoaderController
     {
         /// <summary>
         /// Scene references
@@ -20,6 +20,12 @@ namespace UnityScenesLoaderManager.Controllers
         [SceneReference]
         [InspectorName("Scenes")]
         private string[] sceneReferences;
+
+        /// <summary>
+        /// Is loading scenes additively
+        /// </summary>
+        [SerializeField]
+        private bool isLoadingAdditively;
 
         /// <summary>
         /// Scene references
@@ -38,14 +44,25 @@ namespace UnityScenesLoaderManager.Controllers
         }
 
         /// <summary>
-        /// Loads scenes
+        /// Is loading scenes additively
         /// </summary>
-        public void LoadScenes() => LoadScenes(sceneReferences);
+        public bool IsLoadingAdditively
+        {
+            get => isLoadingAdditively;
+            set => isLoadingAdditively = value;
+        }
 
         /// <summary>
         /// Loads scenes
         /// </summary>
+        public void LoadScenes() => LoadScenes(sceneReferences, isLoadingAdditively);
+
+        /// <summary>
+        /// Loads the specified scenes
+        /// </summary>
         /// <param name="sceneReferences">Scene references</param>
-        public void LoadScenes(IReadOnlyList<string> sceneReferences) => ScenesLoaderManager.LoadScenes(sceneReferences);
+        /// <param name="isLoadingAdditively">Is loading scenes additively</param>
+        public void LoadScenes(IReadOnlyList<string> sceneReferences, bool isLoadingAdditively) =>
+            ScenesLoaderManager.LoadScenes(sceneReferences, isLoadingAdditively);
     }
 }

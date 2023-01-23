@@ -11,7 +11,7 @@ namespace UnityScenesLoaderManagerEditor.PropertyDrawers
     /// A class that describes a scene reference attribute property drawer
     /// </summary>
     [CustomPropertyDrawer(typeof(SceneReferenceAttribute))]
-    public class SceneReferenceAttributePropertyDrawer : PropertyDrawer, ISceneReferenceAttributePropertyDrawer
+    public sealed class SceneReferenceAttributePropertyDrawer : PropertyDrawer, ISceneReferenceAttributePropertyDrawer
     {
         /// <summary>
         /// Loads scene asset

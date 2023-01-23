@@ -17,14 +17,20 @@ namespace UnityScenesLoaderManager
         string[] SceneReferences { get; set; }
 
         /// <summary>
+        /// Is loading scenes additively
+        /// </summary>
+        bool IsLoadingAdditively { get; set; }
+
+        /// <summary>
         /// Loads scenes
         /// </summary>
         void LoadScenes();
 
         /// <summary>
-        /// Loads scenes
+        /// Loads the specified scenes
         /// </summary>
-        /// <param name="sceneReferences">Scene references</param>
-        void LoadScenes(IReadOnlyList<string> sceneReferences);
+        /// <param name="sceneReferences">Scene refereneces</param>
+        /// <param name="isLoadingAdditively">Is loading scenes additively</param>
+        void LoadScenes(IReadOnlyList<string> sceneReferences, bool isLoadingAdditively);
     }
 }

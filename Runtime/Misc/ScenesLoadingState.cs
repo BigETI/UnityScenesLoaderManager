@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -11,42 +10,17 @@ namespace UnityScenesLoaderManager
     /// <summary>
     /// A class that describes a state of loading scenes
     /// </summary>
-    internal class ScenesLoadingState : IScenesLoadingState
+    internal sealed class ScenesLoadingState : IScenesLoadingState
     {
         /// <summary>
         /// Scene loading asynchronous operations
         /// </summary>
-        private readonly AsyncOperation[] sceneLoadingAsyncOperations;
+        private readonly List<AsyncOperation> sceneLoadingAsynchronousOperations = new();
 
         /// <summary>
         /// Scene loading asynchronous operations
         /// </summary>
-        public IReadOnlyList<AsyncOperation> SceneLoadingAsyncOperations => sceneLoadingAsyncOperations;
-
-        /// <summary>
-        /// A scenes loading state with without any scenes
-        /// </summary>
-        public static ScenesLoadingState Empty { get; } = new ScenesLoadingState(Array.Empty<AsyncOperation>());
-
-        /// <summary>
-        /// Constructs a scenes loading state
-        /// </summary>
-        /// <param name="sceneLoadingAsyncOperations">Scene loading asynchronous operations</param>
-        public ScenesLoadingState(IReadOnlyList<AsyncOperation> sceneLoadingAsyncOperations)
-        {
-            if (sceneLoadingAsyncOperations == null)
-            {
-                throw new ArgumentNullException(nameof(sceneLoadingAsyncOperations));
-            }
-            foreach (AsyncOperation scene_loading_async_operations in sceneLoadingAsyncOperations)
-            {
-                if (scene_loading_async_operations == null)
-                {
-                    throw new ArgumentException($"Parameter \"{ nameof(sceneLoadingAsyncOperations) }\" contains null.");
-                }
-            }
-            this.sceneLoadingAsyncOperations = sceneLoadingAsyncOperations.ToArray();
-        }
+        public IReadOnlyList<AsyncOperation> SceneLoadingAsynchronusOperations => sceneLoadingAsynchronousOperations;
 
         /// <summary>
         /// Current progress
@@ -56,13 +30,13 @@ namespace UnityScenesLoaderManager
             get
             {
                 float ret = 0.0f;
-                if (sceneLoadingAsyncOperations.Length > 0)
+                if (sceneLoadingAsynchronousOperations.Count > 0)
                 {
-                    foreach (AsyncOperation scene_loading_async_operations in sceneLoadingAsyncOperations)
+                    foreach (AsyncOperation scene_loading_async_operations in sceneLoadingAsynchronousOperations)
                     {
                         ret += scene_loading_async_operations.progress;
                     }
-                    ret /= sceneLoadingAsyncOperations.Length;
+                    ret /= sceneLoadingAsynchronousOperations.Count;
                 }
                 return ret;
             }
@@ -76,7 +50,7 @@ namespace UnityScenesLoaderManager
             get
             {
                 bool ret = true;
-                foreach (AsyncOperation scene_loading_async_operations in sceneLoadingAsyncOperations)
+                foreach (AsyncOperation scene_loading_async_operations in sceneLoadingAsynchronousOperations)
                 {
                     if (!scene_loading_async_operations.isDone)
                     {
@@ -96,7 +70,7 @@ namespace UnityScenesLoaderManager
             get
             {
                 bool ret = true;
-                foreach (AsyncOperation scene_loading_async_operations in sceneLoadingAsyncOperations)
+                foreach (AsyncOperation scene_loading_async_operations in sceneLoadingAsynchronousOperations)
                 {
                     if (!scene_loading_async_operations.allowSceneActivation)
                     {
@@ -107,5 +81,30 @@ namespace UnityScenesLoaderManager
                 return ret;
             }
         }
+
+        /// <summary>
+        /// Adds the specified scene loading asynchronous operation
+        /// </summary>
+        /// <param name="sceneLoadingAsynchronousOperation">Scene loading asynchronous operation</param>
+        /// <returns>"true" if the specified scene loading asynchronous operation is not contained, otherwise "false"</returns>
+        /// <exception cref="ArgumentNullException">When "sceneLoadingAsynchronousOperation" is null</exception>
+        bool IScenesLoadingState.AddSceneLoadingAsynchronousOperation(AsyncOperation sceneLoadingAsynchronousOperation)
+        {
+            if (sceneLoadingAsynchronousOperation == null)
+            {
+                throw new ArgumentNullException(nameof(sceneLoadingAsynchronousOperation));
+            }
+            bool ret = !sceneLoadingAsynchronousOperations.Contains(sceneLoadingAsynchronousOperation);
+            if (ret)
+            {
+                sceneLoadingAsynchronousOperations.Add(sceneLoadingAsynchronousOperation);
+            }
+            return ret;
+        }
+
+        /// <summary>
+        /// Clears all scene loading asynchronous operations
+        /// </summary>
+        void IScenesLoadingState.Clear() => sceneLoadingAsynchronousOperations.Clear();
     }
 }

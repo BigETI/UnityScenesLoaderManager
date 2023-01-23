@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -14,7 +15,7 @@ namespace UnityScenesLoaderManager
         /// <summary>
         /// Scene loading asynchronous operations
         /// </summary>
-        IReadOnlyList<AsyncOperation> SceneLoadingAsyncOperations { get; }
+        IReadOnlyList<AsyncOperation> SceneLoadingAsynchronusOperations { get; }
 
         /// <summary>
         /// Current progress
@@ -30,5 +31,18 @@ namespace UnityScenesLoaderManager
         /// Is scene activation allowed
         /// </summary>
         bool IsSceneActivationAllowed { get; }
+
+        /// <summary>
+        /// Adds the specified scene loading asynchronous operation
+        /// </summary>
+        /// <param name="sceneLoadingAsynchronousOperation">Scene loading asynchronous operation</param>
+        /// <returns>"true" if the specified scene loading asynchronous operation is not contained, otherwise "false"</returns>
+        /// <exception cref="ArgumentNullException">When "sceneLoadingAsynchronousOperation" is null</exception>
+        internal bool AddSceneLoadingAsynchronousOperation(AsyncOperation sceneLoadingAsynchronousOperation);
+
+        /// <summary>
+        /// Clears all scene loading asynchronous operations
+        /// </summary>
+        internal void Clear();
     }
 }

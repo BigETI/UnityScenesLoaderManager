@@ -10,7 +10,7 @@ namespace UnityScenesLoaderManager.Controllers
     /// <summary>
     /// A class that describes a scenes loader manager controller script
     /// </summary>
-    public class ScenesLoaderManagerControllerScript : AControllerScript, IScenesLoaderManagerController
+    public sealed class ScenesLoaderManagerControllerScript : AControllerScript, IScenesLoaderManagerController
     {
         /// <summary>
         /// On scene load started
@@ -42,7 +42,7 @@ namespace UnityScenesLoaderManager.Controllers
         /// <summary>
         /// Update
         /// </summary>
-        protected virtual void Update()
+        private void Update()
         {
             bool are_all_scenes_loaded = ScenesLoaderManager.CurrentScenesLoadingState.AreAllScenesLoaded;
             if (areAllScenesLoaded != are_all_scenes_loaded)

@@ -10,7 +10,7 @@ namespace UnityScenesLoaderManager
     /// An attribute that describes a field to draw a scene reference
     /// </summary>
     [AttributeUsage(AttributeTargets.Field)]
-    public class SceneReferenceAttribute : PropertyAttribute
+    public sealed class SceneReferenceAttribute : PropertyAttribute
     {
         /// <summary>
         /// Is allowed to reference scene without build index

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
@@ -16,46 +15,67 @@ namespace UnityScenesLoaderManager
         /// <summary>
         /// Current scenes loading state
         /// </summary>
-        public static IScenesLoadingState CurrentScenesLoadingState { get; private set; } = ScenesLoadingState.Empty;
+        public static IScenesLoadingState CurrentScenesLoadingState { get; private set; } = new ScenesLoadingState();
 
         /// <summary>
-        /// Loads specified scene
+        /// Loads the specified scene
         /// </summary>
         /// <param name="sceneName">Scene name</param>
+        /// <param name="isLoadingAdditively">Is loading additively</param>
         /// <returns>Scenes loading state</returns>
-        public static IScenesLoadingState LoadScene(string sceneName)
+        public static IScenesLoadingState LoadScene(string sceneName, bool isLoadingAdditively)
         {
             if (string.IsNullOrWhiteSpace(sceneName))
             {
                 throw new ArgumentNullException(nameof(sceneName));
             }
-            return LoadScenes(sceneName);
+            return isLoadingAdditively ? LoadScenesAdditively(sceneName) : LoadScenes(sceneName);
         }
 
         /// <summary>
         /// Loads all specified scenes
         /// </summary>
         /// <param name="sceneNames">Scene names</param>
+        /// <param name="isLoadingAdditively">Is loading additively</param>
         /// <returns>Scenes loading state</returns>
-        public static IScenesLoadingState LoadScenes(IReadOnlyList<string> sceneNames)
+        public static IScenesLoadingState LoadScenes(IReadOnlyList<string> sceneNames, bool isLoadingAdditively)
         {
             if (sceneNames == null)
             {
                 throw new ArgumentNullException(nameof(sceneNames));
             }
+            if (sceneNames.Count <= 0)
+            {
+                throw new ArgumentException("Specified scene names need to contain at least one entry.", nameof(sceneNames));
+            }
             foreach (string scene_name in sceneNames)
             {
                 if (scene_name == null)
                 {
-                    throw new ArgumentException($"Argument \"{ nameof(sceneNames) }\" contains null.");
+                    throw new ArgumentException($"Argument \"{nameof(sceneNames)}\" contains null.", nameof(sceneNames));
+                }
+                else
+                {
+                    Scene scene = SceneManager.GetSceneByName(scene_name);
+                    if (!scene.IsValid())
+                    {
+                        throw new ArgumentException($"Scene \"{nameof(scene_name)}\" is not valid.", nameof(sceneNames));
+                    }
                 }
             }
-            AsyncOperation[] scene_async_operations = new AsyncOperation[sceneNames.Count];
-            for (int scene_name_index = 0; scene_name_index < sceneNames.Count; scene_name_index++)
+            if (!isLoadingAdditively)
             {
-                scene_async_operations[scene_name_index] = SceneManager.LoadSceneAsync(sceneNames[scene_name_index], (scene_name_index == 0) ? LoadSceneMode.Single : LoadSceneMode.Additive);
+                CurrentScenesLoadingState.Clear();
             }
-            CurrentScenesLoadingState = new ScenesLoadingState(scene_async_operations);
+            bool is_first = true;
+            foreach (string scene_name in sceneNames)
+            {
+                CurrentScenesLoadingState.AddSceneLoadingAsynchronousOperation
+                (
+                    SceneManager.LoadSceneAsync(scene_name, (is_first && !isLoadingAdditively) ? LoadSceneMode.Single : LoadSceneMode.Additive)
+                );
+                is_first = false;
+            }
             return CurrentScenesLoadingState;
         }
 
@@ -64,6 +84,13 @@ namespace UnityScenesLoaderManager
         /// </summary>
         /// <param name="sceneNames">Scene names</param>
         /// <returns>Scenes loading state</returns>
-        public static IScenesLoadingState LoadScenes(params string[] sceneNames) => LoadScenes((IReadOnlyList<string>)sceneNames);
+        public static IScenesLoadingState LoadScenes(params string[] sceneNames) => LoadScenes(sceneNames, false);
+
+        /// <summary>
+        /// Loads all specified scenes additively
+        /// </summary>
+        /// <param name="sceneNames">Scene names</param>
+        /// <returns>Scenes loading state</returns>
+        public static IScenesLoadingState LoadScenesAdditively(params string[] sceneNames) => LoadScenes(sceneNames, true);
     }
 }

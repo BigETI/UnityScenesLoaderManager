@@ -1,6 +1,6 @@
 {
     "name": "com.bigeti.scenesloadermanager",
-    "version": "1.3.0",
+    "version": "1.4.0",
     "displayName": "Scenes Loader Manager for Unity",
     "description": "This package contains a scenes loader manager for Unity.",
     "dependencies": {},
