@@ -56,10 +56,9 @@ namespace UnityScenesLoaderManager
                 }
                 else
                 {
-                    Scene scene = SceneManager.GetSceneByName(scene_name);
-                    if (!scene.IsValid())
+                    if (SceneUtility.GetBuildIndexByScenePath(scene_name) < 0)
                     {
-                        throw new ArgumentException($"Scene \"{nameof(scene_name)}\" is not valid.", nameof(sceneNames));
+                        throw new ArgumentException($"Scene \"{scene_name}\" is not valid.", nameof(sceneNames));
                     }
                 }
             }
